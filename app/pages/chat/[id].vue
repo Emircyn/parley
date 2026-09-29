@@ -102,6 +102,7 @@ useHead({ title: () => conversation.value ? `${conversation.value.title} · Parl
         </template>
         <template #right>
           <ModelBadge class="max-sm:hidden" />
+          <SourceButton />
         </template>
       </UDashboardNavbar>
     </template>

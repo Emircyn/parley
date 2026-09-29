@@ -28,6 +28,7 @@ function start(text: string) {
         </template>
         <template #right>
           <ModelBadge />
+          <SourceButton />
         </template>
       </UDashboardNavbar>
     </template>

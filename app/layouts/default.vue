@@ -151,19 +151,46 @@ async function deleteConversation(id: string) {
 
       <template #footer="{ collapsed }">
         <div
-          class="flex w-full items-center gap-1"
-          :class="collapsed ? 'flex-col' : 'justify-between'"
+          class="flex w-full flex-col gap-1.5"
+          :class="{ 'items-center': collapsed }"
         >
-          <span
+          <p
             v-if="!collapsed"
-            class="truncate ps-1 text-xs text-dimmed"
+            class="ps-2.5 text-xs text-dimmed"
           >
-            Runs on Cloudflare Workers AI
-          </span>
+            Powered by
+            <ULink
+              :to="AUTHOR.website"
+              target="_blank"
+              class="font-medium text-toned hover:text-primary"
+            >
+              {{ AUTHOR.name }}
+            </ULink>
+          </p>
           <div
             class="flex items-center gap-0.5"
             :class="{ 'flex-col': collapsed }"
           >
+            <UTooltip :text="`${AUTHOR.name} on GitHub`">
+              <UButton
+                icon="i-simple-icons-github"
+                :to="AUTHOR.github"
+                target="_blank"
+                color="neutral"
+                variant="ghost"
+                :aria-label="`${AUTHOR.name} on GitHub`"
+              />
+            </UTooltip>
+            <UTooltip text="emircyn.com">
+              <UButton
+                icon="i-lucide-globe"
+                :to="AUTHOR.website"
+                target="_blank"
+                color="neutral"
+                variant="ghost"
+                aria-label="emircyn.com"
+              />
+            </UTooltip>
             <UTooltip
               text="Keyboard shortcuts"
               :kbds="['?']"
