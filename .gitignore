@@ -38,3 +38,6 @@ graft/
 # Local AI assistant context (kept private)
 CLAUDE.md
 .claude/
+
+# Local design explorations
+.theme-options/
