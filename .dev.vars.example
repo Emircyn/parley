@@ -1,0 +1,7 @@
+# Copy to .dev.vars for local development. Turnstile's public test keys always pass.
+TURNSTILE_SITE_KEY=1x00000000000000000000AA
+TURNSTILE_SECRET=1x0000000000000000000000000000000AA
+TURNSTILE_ALLOW_TEST_KEYS=true
+TURNSTILE_HOSTNAMES=localhost,127.0.0.1
+# At least 32 random characters, e.g. `openssl rand -base64 32`
+SESSION_SECRET=replace-me-with-at-least-32-random-characters
