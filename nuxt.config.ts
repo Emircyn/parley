@@ -76,7 +76,8 @@ export default defineNuxtConfig({
 
   icon: {
     // Bundle every icon the app uses; never fetch icons from the Iconify API at runtime (CSP + privacy).
-    clientBundle: { scan: true },
+    // Scan .ts too: weather icons are picked at runtime in app/utils/weather.ts.
+    clientBundle: { scan: { globInclude: ['app/**/*.{vue,ts}'] } },
     fallbackToApi: false
   }
 })

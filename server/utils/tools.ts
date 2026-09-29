@@ -105,7 +105,7 @@ export const chatTools = {
     execute: ({ city }) => getWeather(city)
   }),
   calculate: tool({
-    description: 'Evaluate a math expression exactly. Use it for any arithmetic instead of computing in your head. Supports + - * / % ^, parentheses, pi, e, sqrt, cbrt, abs, round, floor, ceil, sin, cos, tan, asin, acos, atan, ln, log (base 10), exp.',
+    description: 'Evaluate a math expression exactly. Use it for any arithmetic instead of computing in your head. Supports + - * / % ^, "18% of 2450", thousands separators, parentheses, pi, e, sqrt, cbrt, abs, round, floor, ceil, sin, cos, tan, asin, acos, atan, ln, log (base 10), exp.',
     inputSchema: z.object({
       expression: z.string().min(1).max(200).describe('The expression, e.g. "(1250 * 0.18) + 42" or "sqrt(2) ^ 10"')
     }),
