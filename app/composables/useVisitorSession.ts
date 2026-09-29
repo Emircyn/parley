@@ -40,6 +40,7 @@ async function getToken(siteKey: string, action: string) {
       'sitekey': siteKey,
       action,
       'appearance': 'interaction-only',
+      'theme': document.documentElement.classList.contains('dark') ? 'dark' : 'light',
       'callback': (token: string) => {
         turnstile.remove(widgetId)
         resolve(token)

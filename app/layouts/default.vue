@@ -162,7 +162,7 @@ async function deleteConversation(id: string) {
             <ULink
               :to="AUTHOR.website"
               target="_blank"
-              class="font-medium text-toned hover:text-primary"
+              class="font-medium text-toned hover:text-highlighted"
             >
               {{ AUTHOR.name }}
             </ULink>
@@ -217,7 +217,7 @@ async function deleteConversation(id: string) {
     <!-- Turnstile renders here; it stays invisible unless Cloudflare asks for an interaction. -->
     <div
       :id="TURNSTILE_CONTAINER_ID"
-      class="fixed bottom-32 left-1/2 z-50 -translate-x-1/2 empty:hidden"
+      class="fixed right-4 bottom-4 z-50 empty:hidden"
     />
   </UDashboardGroup>
 </template>

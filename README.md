@@ -3,9 +3,9 @@
 </p>
 
 <p align="center">
-  <a href="https://parley.emircan-erdemci.workers.dev"><img alt="Live demo" src="https://img.shields.io/badge/live_demo-parley.workers.dev-ee5a36?style=flat-square"></a>
+  <a href="https://parley.emircan-erdemci.workers.dev"><img alt="Live demo" src="https://img.shields.io/badge/live_demo-parley.workers.dev-8b5cff?style=flat-square"></a>
   <a href="https://github.com/Emircyn/parley/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/Emircyn/parley/ci.yml?branch=main&style=flat-square&label=CI"></a>
-  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-3a3330?style=flat-square"></a>
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-111111?style=flat-square"></a>
   <img alt="Nuxt 4" src="https://img.shields.io/badge/Nuxt-4-00DC82?style=flat-square&logo=nuxt&logoColor=white">
   <img alt="Nuxt UI 4" src="https://img.shields.io/badge/Nuxt_UI-4-00DC82?style=flat-square&logo=nuxt&logoColor=white">
   <img alt="Cloudflare Workers" src="https://img.shields.io/badge/Cloudflare-Workers_AI-F38020?style=flat-square&logo=cloudflare&logoColor=white">
@@ -39,7 +39,7 @@
 | **Reasoning you can peek at** | The model's thinking streams into a collapsible "Thought for 3 seconds" block. |
 | **History in the browser** | Chats are saved locally, grouped by date, and never leave the device. |
 | **Built for keyboards and phones** | `⌘⇧O` new chat, `/` focus, `Esc` stop, `?` for the full list. The sidebar turns into a drawer on mobile. |
-| **Light and dark** | A warm custom theme in both modes, with a brand loader while the app boots. |
+| **AMOLED dark, clean light** | A monochrome interface on true black with vivid accents per tool, a light mode to match, and a brand loader while the app boots. |
 | **A locked-down API** | Cloudflare Turnstile, a signed session cookie, rate limits, a strict CSP and XSS-safe Markdown keep the free AI quota for real visitors. |
 
 <p align="center">

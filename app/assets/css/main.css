@@ -2,32 +2,52 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-serif: 'Instrument Serif', ui-serif, Georgia, serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-
-  /* Ember: Parley's brand color, a warm coral that reads well on light and dark. */
-  --color-ember-50: #fff4ef;
-  --color-ember-100: #ffe6da;
-  --color-ember-200: #ffc9b1;
-  --color-ember-300: #ffa47f;
-  --color-ember-400: #fb7a4c;
-  --color-ember-500: #ee5a36;
-  --color-ember-600: #d4421f;
-  --color-ember-700: #b03318;
-  --color-ember-800: #8d2c19;
-  --color-ember-900: #732818;
-  --color-ember-950: #3e110a;
+  --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
+/*
+ * Parley's look: a monochrome interface on true black (AMOLED) with a few vivid accents.
+ * Buttons and focus rings are black/white; colour is saved for the brand gradient and the tool cards.
+ */
 :root {
-  /* 600 keeps white button text above AA contrast in light mode. */
-  --ui-primary: var(--ui-color-primary-600);
+  --ui-primary: var(--ui-color-primary-900);
   --ui-radius: 0.5rem;
+
+  --accent-cyan: #0891b2;
+  --accent-violet: #7c3aed;
+  --accent-magenta: #c026d3;
+  --accent-lime: #4d7c0f;
+  --parley-gradient: linear-gradient(100deg, var(--accent-cyan), var(--accent-violet) 50%, var(--accent-magenta));
 }
 
 .dark {
-  --ui-primary: var(--ui-color-primary-400);
+  --ui-primary: var(--ui-color-primary-50);
+
+  /* True black surfaces: AMOLED pixels switch off and accents glow. */
+  --ui-bg: #000;
+  --ui-bg-muted: #0a0a0a;
+  --ui-bg-elevated: #111;
+  --ui-bg-accented: #1c1c1c;
+  --ui-border: #222;
+  --ui-border-muted: #181818;
+  --ui-border-accented: #333;
+
+  --accent-cyan: #00e5ff;
+  --accent-violet: #8b5cff;
+  --accent-magenta: #ff3df2;
+  --accent-lime: #c6ff00;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent-magenta) 35%, transparent);
+}
+
+.text-gradient {
+  background: var(--parley-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* rangi emits --shiki-dark* vars for the dark half of the code theme */

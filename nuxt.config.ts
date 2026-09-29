@@ -13,7 +13,7 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'en' },
       meta: [
         { name: 'description', content: 'Parley is an AI chat with streaming replies and live tool cards, running on Cloudflare Workers AI.' },
-        { name: 'theme-color', content: '#1c1917' }
+        { name: 'theme-color', content: '#000000' }
       ],
       link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]
     }
@@ -68,9 +68,8 @@ export default defineNuxtConfig({
 
   fonts: {
     families: [
-      { name: 'Instrument Sans', provider: 'google', weights: [400, 500, 600, 700] },
-      { name: 'Instrument Serif', provider: 'google', weights: [400], styles: ['normal', 'italic'] },
-      { name: 'JetBrains Mono', provider: 'google', weights: [400, 500] }
+      { name: 'Geist', provider: 'google', weights: [400, 500, 600, 700] },
+      { name: 'Geist Mono', provider: 'google', weights: [400, 500] }
     ]
   },
 

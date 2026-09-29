@@ -1,15 +1,20 @@
 <div id="parley-boot" role="status" aria-label="Loading Parley">
   <svg viewBox="0 0 32 32" width="56" height="56" aria-hidden="true">
     <defs>
+      <linearGradient id="parley-boot-grad" x1="15" y1="16" x2="30" y2="29" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#00e5ff" />
+        <stop offset=".5" stop-color="#8b5cff" />
+        <stop offset="1" stop-color="#ff3df2" />
+      </linearGradient>
       <mask id="parley-boot-gap">
         <rect width="32" height="32" fill="#fff" />
         <path d="M20 16H25a4.5 4.5 0 0 1 4.5 4.5V28.5L26 25H20a4.5 4.5 0 0 1-4.5-4.5 4.5 4.5 0 0 1 4.5-4.5Z" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round" />
       </mask>
     </defs>
     <g mask="url(#parley-boot-gap)">
-      <path class="a" fill="#ee5a36" fill-rule="evenodd" d="M4 11.5A8.5 8.5 0 0 1 12.5 3h5A8.5 8.5 0 0 1 26 11.5 8.5 8.5 0 0 1 17.5 20H11v5.5a3.5 3.5 0 0 1-7 0ZM15 8.3a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 1 0 0-6.4Z" />
+      <path class="a" fill-rule="evenodd" d="M4 11.5A8.5 8.5 0 0 1 12.5 3h5A8.5 8.5 0 0 1 26 11.5 8.5 8.5 0 0 1 17.5 20H11v5.5a3.5 3.5 0 0 1-7 0ZM15 8.3a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 1 0 0-6.4Z" />
     </g>
-    <path class="b" fill="#ffa47f" d="M20 16H25a4.5 4.5 0 0 1 4.5 4.5V28.5L26 25H20a4.5 4.5 0 0 1-4.5-4.5 4.5 4.5 0 0 1 4.5-4.5Z" />
+    <path class="b" fill="url(#parley-boot-grad)" d="M20 16H25a4.5 4.5 0 0 1 4.5 4.5V28.5L26 25H20a4.5 4.5 0 0 1-4.5-4.5 4.5 4.5 0 0 1 4.5-4.5Z" />
   </svg>
   <span>Parley</span>
 </div>
@@ -23,16 +28,20 @@
     align-items: center;
     justify-content: center;
     gap: 14px;
-    background: #fbfaf9;
-    color: #3a3330;
-    font: 400 26px/1 'Instrument Serif', Georgia, serif;
-    letter-spacing: -0.01em;
+    background: #fff;
+    color: #0a0a0a;
+    font: 600 22px/1 'Geist', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
   }
+  #parley-boot .a { fill: #0a0a0a; }
   @media (prefers-color-scheme: dark) {
-    #parley-boot { background: #1d1a18; color: #f1edea; }
+    #parley-boot { background: #000; color: #fafafa; }
+    #parley-boot .a { fill: #fafafa; }
   }
-  html.dark #parley-boot { background: #1d1a18; color: #f1edea; }
-  html.light #parley-boot { background: #fbfaf9; color: #3a3330; }
+  html.dark #parley-boot { background: #000; color: #fafafa; }
+  html.dark #parley-boot .a { fill: #fafafa; }
+  html.light #parley-boot { background: #fff; color: #0a0a0a; }
+  html.light #parley-boot .a { fill: #0a0a0a; }
   #parley-boot .a, #parley-boot .b {
     transform-box: fill-box;
     transform-origin: center;

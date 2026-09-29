@@ -9,15 +9,16 @@ const unit = computed(() => props.data.units.temperature.replace('°C', '°').re
   <ToolsToolCard
     icon="i-lucide-map-pin"
     title="Weather"
+    accent="cyan"
     :subtitle="[data.location, data.country].filter(Boolean).join(', ')"
   >
     <div class="flex items-center gap-4">
       <UIcon
         :name="now.icon"
-        class="size-14 shrink-0 text-primary"
+        class="size-14 shrink-0 text-(--accent-cyan)"
       />
       <div class="min-w-0">
-        <p class="font-serif text-5xl leading-none text-highlighted">
+        <p class="text-5xl font-semibold leading-none tracking-tighter text-highlighted tabular-nums">
           {{ Math.round(data.current.temperature) }}{{ unit }}
         </p>
         <p class="mt-1 text-sm text-muted">
