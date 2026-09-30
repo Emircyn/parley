@@ -14,11 +14,27 @@ const emit = defineEmits<{ submit: [text: string], stop: [], reload: [] }>()
 const input = defineModel<string>({ default: '' })
 
 const typer = useTypewriter(props.examples ?? [])
+const { block, noteSent } = useUsageState()
+
+function duration(ms: number) {
+  const minutes = Math.max(1, Math.ceil(ms / 60_000))
+  const h = Math.floor(minutes / 60)
+  return h ? `${h}h ${minutes % 60}m` : `${minutes}m`
+}
+
+// When a limit is hit the box locks and says why and for how long; it unlocks by itself.
+const blockedText = computed(() => {
+  const b = block.value
+  if (!b) return
+  return b.kind === 'rate_limit'
+    ? `Limit reached. You can send again in ${b.resetsIn}s.`
+    : `Today's shared quota is used up. Back in ${duration(b.resetsIn)}.`
+})
 
 // What Tab would fill in: the current example, or the suggested follow-up.
 const completion = computed(() => props.suggestion ?? (props.examples?.length ? typer.current.value : undefined))
-const placeholder = computed(() => props.suggestion ?? (props.examples?.length ? typer.text.value : 'Reply to Parley…'))
-const canComplete = computed(() => !input.value && !!completion.value && (props.status ?? 'ready') === 'ready')
+const placeholder = computed(() => blockedText.value ?? props.suggestion ?? (props.examples?.length ? typer.text.value : 'Reply to Parley…'))
+const canComplete = computed(() => !blockedText.value && !input.value && !!completion.value && (props.status ?? 'ready') === 'ready')
 
 // Like Claude: with an empty box, Tab accepts the suggestion instead of moving focus.
 function onKeydown(event: KeyboardEvent) {
@@ -29,7 +45,8 @@ function onKeydown(event: KeyboardEvent) {
 
 function onSubmit() {
   const text = input.value.trim()
-  if (!text) return
+  if (!text || blockedText.value) return
+  noteSent()
   emit('submit', text)
   input.value = ''
 }
@@ -46,6 +63,7 @@ function onSubmit() {
       :autofocus="autofocus"
       :maxrows="8"
       class="[view-transition-name:chat-prompt]"
+      :disabled="!!blockedText"
       @keydown="onKeydown"
       @submit="onSubmit"
     >
@@ -59,6 +77,7 @@ function onSubmit() {
         />
         <UChatPromptSubmit
           :status="status ?? 'ready'"
+          :disabled="!!blockedText && (status ?? 'ready') === 'ready'"
           color="primary"
           @stop="emit('stop')"
           @reload="emit('reload')"

@@ -39,11 +39,25 @@ export default defineEventHandler(async (event) => {
   const minuteKey = 'session' in op && op.session ? `min:${op.session}` : undefined
   let stamps = minuteKey ? (await storage.get<number[]>(minuteKey) ?? []).filter((t: number) => now - t < MINUTE_MS) : []
 
+  // A 'message' is a gate as well as a count: it's refused (and not counted) once a limit is hit,
+  // so what the usage screen shows is exactly what's enforced.
+  let allowed: boolean | undefined
+  let reason: UsageSnapshot['reason']
+
   switch (op.op) {
     case 'message':
-      stamps = [...stamps, now]
-      day.messages++
-      await storage.put({ [minuteKey!]: stamps, [dayKey]: day })
+      if (day.exhausted) {
+        allowed = false
+        reason = 'quota'
+      } else if (stamps.length >= MESSAGES_PER_MINUTE) {
+        allowed = false
+        reason = 'rate_limit'
+      } else {
+        allowed = true
+        stamps = [...stamps, now]
+        day.messages++
+        await storage.put({ [minuteKey!]: stamps, [dayKey]: day })
+      }
       break
     case 'neurons':
       day.neurons += Math.max(0, op.amount)
@@ -80,6 +94,8 @@ export default defineEventHandler(async (event) => {
       messages: day.messages,
       exhausted: day.exhausted,
       resetsAt: nextUtcMidnight()
-    }
+    },
+    allowed,
+    reason
   } satisfies UsageSnapshot
 })

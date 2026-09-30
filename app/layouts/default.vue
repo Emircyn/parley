@@ -13,8 +13,12 @@ const { openUsage } = useUsage()
 const open = ref(false)
 
 // Verify the visitor in the background so the first message isn't delayed.
+const { refreshUsage } = useUsageState()
+
 onMounted(() => {
   ensureVisitorSession().catch(() => {})
+  // Know the limits up front, so the message box can lock before anyone hits them.
+  refreshUsage()
 })
 
 type ConversationItem = NavigationMenuItem & { conversationId: string }

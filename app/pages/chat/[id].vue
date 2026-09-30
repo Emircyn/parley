@@ -19,6 +19,8 @@ if (!conversation.value) {
   await navigateTo('/', { replace: true })
 }
 
+const { refreshUsage } = useUsageState()
+
 // Next-message guess from the server's small model, streamed after each reply (not stored).
 const modelSuggestion = ref<string>()
 
@@ -36,7 +38,11 @@ const input = ref('')
 // Persist whenever a turn settles (finished, stopped or failed).
 watch(status, (value) => {
   if (value === 'submitted') modelSuggestion.value = undefined
-  if (value === 'ready' || value === 'error') saveMessages(id, messages.value)
+  if (value === 'ready' || value === 'error') {
+    saveMessages(id, messages.value)
+    // Sync the limits after every turn (and after a 429), so the box locks or unlocks correctly.
+    refreshUsage()
+  }
 })
 
 function send(text: string) {

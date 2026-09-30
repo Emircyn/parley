@@ -4,29 +4,21 @@ import { useIntervalFn } from '@vueuse/core'
 // Rough cost of one reply (main model + next-message guess), for "replies left" before there's data today.
 const TYPICAL_NEURONS_PER_REPLY = 25
 
-const usage = ref<UsageSnapshot>()
+const { usage, fetchedAt, now, refreshUsage } = useUsageState()
 const failed = ref(false)
-const now = ref(Date.now())
-let fetchedAt = Date.now()
 
 async function load() {
-  try {
-    usage.value = await $fetch<UsageSnapshot>('/api/usage')
-    fetchedAt = Date.now()
-    failed.value = false
-  } catch {
-    failed.value = true
-  }
+  await refreshUsage()
+  failed.value = !usage.value
 }
 
 load()
 useIntervalFn(load, 10_000)
-useIntervalFn(() => (now.value = Date.now()), 1_000)
 
 const minute = computed(() => {
   const m = usage.value?.minute
   if (!m) return
-  const elapsed = Math.floor((now.value - fetchedAt) / 1000)
+  const elapsed = Math.floor((now.value - fetchedAt.value) / 1000)
   const resetsIn = Math.max(0, m.resetsInSeconds - elapsed)
   return { ...m, used: resetsIn === 0 ? 0 : m.used, resetsIn }
 })

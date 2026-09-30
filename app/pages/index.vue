@@ -18,7 +18,10 @@ const examples = [
   'Write a Vue debounce composable'
 ]
 
+const { block } = useUsageState()
+
 function start(text: string) {
+  if (block.value) return
   const conversation = create(text)
   navigateTo(`/chat/${conversation.id}`)
 }
@@ -70,6 +73,7 @@ function start(text: string) {
             variant="outline"
             size="sm"
             class="rounded-full"
+            :disabled="!!block"
             @click="start(suggestion.label)"
           />
         </div>

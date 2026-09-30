@@ -48,7 +48,9 @@ export default defineEventHandler(async (event) => {
     maxOutputTokens: MAX_OUTPUT_TOKENS
   })
 
-  recordUsage(event, { op: 'message', session: sessionId })
+  // The usage meter is the source of truth for the per-visitor and daily limits the UI shows.
+  const gate = await usageMeter(event, { op: 'message', session: sessionId })
+  if (gate?.allowed === false) return chatError(event, 429, gate.reason ?? 'rate_limit')
 
   const onError = (error: unknown) => {
     console.error('[chat]', error)
