@@ -70,6 +70,8 @@ export default defineNuxtConfig({
   spaLoadingTemplate: 'app/spa-loading-template.html',
 
   runtimeConfig: {
+    // Guesses the next message for the Tab hint. Server-only (NUXT_SUGGESTION_MODEL).
+    suggestionModel: '@cf/meta/llama-3.1-8b-instruct-fp8-fast',
     public: {
       // Workers AI model id, the single setting that picks the model (NUXT_PUBLIC_AI_MODEL at build time).
       aiModel: '@cf/zai-org/glm-4.7-flash'
@@ -92,7 +94,8 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-09-29',
 
   nitro: {
-    preset: 'cloudflare_module',
+    // cloudflare_durable = cloudflare_module + one Durable Object (the usage meter, see server/api/_usage.post.ts).
+    preset: 'cloudflare_durable',
     cloudflare: {
       deployConfig: true,
       nodeCompat: true

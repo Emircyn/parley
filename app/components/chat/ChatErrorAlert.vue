@@ -2,6 +2,8 @@
 const props = defineProps<{ error: Error }>()
 const emit = defineEmits<{ retry: [], dismiss: [] }>()
 
+const { openUsage } = useUsage()
+
 const code = computed<ChatErrorCode>(() => parseChatError(props.error))
 
 const copy = computed(() => {
@@ -49,6 +51,12 @@ const copy = computed(() => {
       }
   }
 })
+
+const actions = computed(() => [
+  ...(copy.value.retry ? [{ label: 'Try again', icon: 'i-lucide-rotate-ccw', color: 'neutral' as const, variant: 'outline' as const, size: 'xs' as const, onClick: () => emit('retry') }] : []),
+  // Limits have a usage screen that says when they reset.
+  ...(code.value === 'quota' || code.value === 'rate_limit' ? [{ label: 'See usage', icon: 'i-lucide-gauge', color: 'neutral' as const, variant: 'ghost' as const, size: 'xs' as const, onClick: () => openUsage() }] : [])
+])
 </script>
 
 <template>
@@ -59,7 +67,7 @@ const copy = computed(() => {
     :title="copy.title"
     :description="copy.description"
     :ui="{ icon: copy.color === 'warning' ? 'text-warning' : 'text-error', root: 'bg-elevated/40' }"
-    :actions="copy.retry ? [{ label: 'Try again', icon: 'i-lucide-rotate-ccw', color: 'neutral', variant: 'outline', size: 'xs', onClick: () => emit('retry') }] : []"
+    :actions="actions"
     close
     @update:open="emit('dismiss')"
   />

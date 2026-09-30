@@ -7,16 +7,18 @@ interface TypewriterOptions {
 
 /**
  * Cycles through phrases like someone typing them: type, hold, delete, next.
- * Falls back to the first phrase when the visitor prefers reduced motion, and idles while the tab is hidden.
+ * `text` is what's on screen; `current` is the whole phrase being typed, so Tab can accept it early.
+ * Shows the first phrase when the visitor prefers reduced motion, and idles while the tab is hidden.
  */
-export function useTypewriter(phrases: string[], { typeMs = 45, deleteMs = 22, holdMs = 1800, pauseMs = 350 }: TypewriterOptions = {}) {
+export function useTypewriter(phrases: string[], { typeMs = 60, deleteMs = 28, holdMs = 4000, pauseMs = 600 }: TypewriterOptions = {}) {
   const text = ref(phrases[0] ?? '')
+  const index = ref(0)
+  const current = computed(() => phrases[index.value] ?? '')
   let timer: ReturnType<typeof setTimeout> | undefined
 
   onMounted(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || phrases.length === 0) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || phrases.length < 2) return
 
-    let index = 0
     let length = 0
     let deleting = false
     text.value = ''
@@ -27,7 +29,7 @@ export function useTypewriter(phrases: string[], { typeMs = 45, deleteMs = 22, h
         return
       }
 
-      const phrase = phrases[index]!
+      const phrase = current.value
       if (!deleting) {
         length++
         text.value = phrase.slice(0, length)
@@ -44,7 +46,7 @@ export function useTypewriter(phrases: string[], { typeMs = 45, deleteMs = 22, h
       text.value = phrase.slice(0, length)
       if (length === 0) {
         deleting = false
-        index = (index + 1) % phrases.length
+        index.value = (index.value + 1) % phrases.length
         timer = setTimeout(tick, pauseMs)
         return
       }
@@ -56,5 +58,5 @@ export function useTypewriter(phrases: string[], { typeMs = 45, deleteMs = 22, h
 
   onBeforeUnmount(() => clearTimeout(timer))
 
-  return text
+  return { text, current }
 }

@@ -37,6 +37,8 @@
 | **Streaming replies** | Tokens render as they arrive, with Markdown, syntax-highlighted code and one-click copy. Stop, regenerate or copy any answer. |
 | **Tool calls as cards** | The model calls real tools and the result shows up as a card: a 4-day weather forecast, an exact calculation, the local time anywhere. |
 | **Reasoning you can peek at** | The model's thinking streams into a collapsible "Thought for 3 seconds" block. |
+| **Tab to continue** | After each reply a small model guesses your next message; press Tab to use it, like in Claude. |
+| **Usage screen** | Messages left this minute and the shared daily quota, with live countdowns to the reset. |
 | **History in the browser** | Chats are saved locally, grouped by date, and never leave the device. |
 | **Built for keyboards and phones** | `⌘⇧O` new chat, `/` focus, `Esc` stop, `?` for the full list. The sidebar turns into a drawer on mobile. |
 | **Monochrome, AMOLED black** | Strictly black and white on true black, a dot-matrix display face (Doto) for the brand and big numbers, a light mode to match, and a brand loader while the app boots. |
@@ -94,7 +96,7 @@ The demo sits on a free AI quota, so the API only answers people using the site.
 | Framework | [Nuxt 4](https://nuxt.com), Vue 3, TypeScript |
 | UI | [Nuxt UI v4](https://ui.nuxt.com), Tailwind CSS v4, Geist + Doto, Lucide icons |
 | AI | [AI SDK](https://ai-sdk.dev) (`useChat`, `streamText`, tools), Cloudflare Workers AI |
-| Platform | Cloudflare Workers + static assets, Workers Rate Limiting, Turnstile |
+| Platform | Cloudflare Workers + static assets, a Durable Object usage meter, Workers Rate Limiting, Turnstile |
 | Quality | ESLint, `vue-tsc`, GitHub Actions CI |
 
 ## Project structure

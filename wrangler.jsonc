@@ -10,6 +10,11 @@
     "binding": "AI",
     "remote": true
   },
+  // Nitro's Durable Object; Parley uses its storage as the usage meter (messages per minute, daily neurons).
+  "durable_objects": {
+    "bindings": [{ "name": "$DurableObject", "class_name": "$DurableObject" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["$DurableObject"] }],
   "ratelimits": [
     {
       // About 5 messages per minute, checked per IP and per session.

@@ -8,6 +8,7 @@ const overlay = useOverlay()
 const deleteModal = overlay.create(DeleteChatModal)
 const { conversations, find, remove } = useConversations()
 const { newChat, openHelp } = useChatShortcuts()
+const { openUsage } = useUsage()
 
 const open = ref(false)
 
@@ -154,6 +155,15 @@ async function deleteConversation(id: string) {
           class="flex w-full items-center gap-0.5"
           :class="{ 'flex-col': collapsed }"
         >
+          <UTooltip text="Usage">
+            <UButton
+              icon="i-lucide-gauge"
+              color="neutral"
+              variant="ghost"
+              aria-label="Usage"
+              @click="openUsage"
+            />
+          </UTooltip>
           <UTooltip
             text="Keyboard shortcuts"
             :kbds="['?']"

@@ -4,6 +4,8 @@
  */
 export default defineEventHandler((event) => {
   if (!event.path.startsWith('/api/')) return
+  // Requests the Worker forwards into its own Durable Object (the usage meter) are internal.
+  if ((event.context.cloudflare as { durable?: unknown } | undefined)?.durable) return
 
   setResponseHeader(event, 'Cache-Control', 'no-store')
 

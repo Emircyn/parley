@@ -1,19 +1,31 @@
 <script setup lang="ts">
 import type { ChatStatus } from 'ai'
 
-defineProps<{ status?: ChatStatus, autofocus?: boolean }>()
+const props = defineProps<{
+  status?: ChatStatus
+  autofocus?: boolean
+  /** Example prompts typed out one after another (start screen). */
+  examples?: string[]
+  /** A single suggested next message (inside a conversation); shown as-is, no animation. */
+  suggestion?: string
+}>()
 const emit = defineEmits<{ submit: [text: string], stop: [], reload: [] }>()
 
 const input = defineModel<string>({ default: '' })
 
-// Kept short so each one fits on a single line on phones.
-const placeholder = useTypewriter([
-  'Ask anything…',
-  'Weather in Istanbul this week?',
-  'What\'s 18% of 2,450 plus 320?',
-  'What time is it in Tokyo?',
-  'Write a Vue debounce composable'
-])
+const typer = useTypewriter(props.examples ?? [])
+
+// What Tab would fill in: the current example, or the suggested follow-up.
+const completion = computed(() => props.suggestion ?? (props.examples?.length ? typer.current.value : undefined))
+const placeholder = computed(() => props.suggestion ?? (props.examples?.length ? typer.text.value : 'Reply to Parley…'))
+const canComplete = computed(() => !input.value && !!completion.value && (props.status ?? 'ready') === 'ready')
+
+// Like Claude: with an empty box, Tab accepts the suggestion instead of moving focus.
+function onKeydown(event: KeyboardEvent) {
+  if (event.key !== 'Tab' || event.shiftKey || !canComplete.value) return
+  event.preventDefault()
+  input.value = completion.value!
+}
 
 function onSubmit() {
   const text = input.value.trim()
@@ -34,14 +46,24 @@ function onSubmit() {
       :autofocus="autofocus"
       :maxrows="8"
       class="[view-transition-name:chat-prompt]"
+      @keydown="onKeydown"
       @submit="onSubmit"
     >
-      <UChatPromptSubmit
-        :status="status ?? 'ready'"
-        color="primary"
-        @stop="emit('stop')"
-        @reload="emit('reload')"
-      />
+      <div class="flex items-center gap-1.5">
+        <UKbd
+          v-if="canComplete"
+          value="Tab"
+          size="sm"
+          class="max-sm:hidden"
+          title="Press Tab to use the suggestion"
+        />
+        <UChatPromptSubmit
+          :status="status ?? 'ready'"
+          color="primary"
+          @stop="emit('stop')"
+          @reload="emit('reload')"
+        />
+      </div>
 
       <template #footer>
         <slot name="footer" />

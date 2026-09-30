@@ -10,6 +10,14 @@ const suggestions = [
   { icon: 'i-lucide-code-xml', label: 'Write a Vue composable that debounces a ref' }
 ]
 
+// Kept short so each one fits on a single line on phones; Tab fills in the one being typed.
+const examples = [
+  'Weather in Istanbul this week?',
+  'What\'s 18% of 2,450 plus 320?',
+  'What time is it in Tokyo?',
+  'Write a Vue debounce composable'
+]
+
 function start(text: string) {
   const conversation = create(text)
   navigateTo(`/chat/${conversation.id}`)
@@ -48,6 +56,7 @@ function start(text: string) {
         <ChatComposer
           v-model="input"
           autofocus
+          :examples="examples"
           @submit="start"
         />
 

@@ -1,5 +1,5 @@
 import type { UIMessage } from 'ai'
-import { convertToModelMessages, createUIMessageStreamResponse, isStepCount, streamText, toUIMessageStream } from 'ai'
+import { convertToModelMessages, createUIMessageStream, createUIMessageStreamResponse, isStepCount, streamText, toUIMessageStream } from 'ai'
 import { z } from 'zod'
 
 const textPart = z.object({ type: z.literal('text'), text: z.string().max(MAX_TEXT_CHARS) })
@@ -48,13 +48,28 @@ export default defineEventHandler(async (event) => {
     maxOutputTokens: MAX_OUTPUT_TOKENS
   })
 
-  const stream = toUIMessageStream({
-    stream: result.stream,
-    tools: chatTools,
-    sendReasoning: true,
-    onError: (error) => {
-      console.error('[chat]', error)
-      return toChatErrorCode(error)
+  recordUsage(event, { op: 'message', session: sessionId })
+
+  const onError = (error: unknown) => {
+    console.error('[chat]', error)
+    const code = toChatErrorCode(error)
+    if (code === 'quota') recordUsage(event, { op: 'exhausted' })
+    return code
+  }
+
+  const stream = createUIMessageStream({
+    onError,
+    execute: async ({ writer }) => {
+      writer.merge(toUIMessageStream({ stream: result.stream, tools: chatTools, sendReasoning: true, onError }))
+
+      // Once the reply is done, a small model guesses the user's next message for the Tab hint.
+      // Sent as a transient data part: the client shows it but never stores it in the conversation.
+      const answer = await Promise.resolve(result.text).catch(() => '')
+      const usage = await Promise.resolve(result.totalUsage).catch(() => undefined)
+      recordUsage(event, { op: 'neurons', amount: estimateNeurons(useRuntimeConfig(event).public.aiModel, usage) })
+      if (!answer) return
+      const suggestion = await suggestNextMessage(event, messages.at(-1)!, answer)
+      if (suggestion) writer.write({ type: 'data-suggestion', data: { text: suggestion }, transient: true })
     }
   })
 

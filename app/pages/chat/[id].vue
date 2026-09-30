@@ -19,16 +19,23 @@ if (!conversation.value) {
   await navigateTo('/', { replace: true })
 }
 
+// Next-message guess from the server's small model, streamed after each reply (not stored).
+const modelSuggestion = ref<string>()
+
 const { messages, status, error, sendMessage, stop, regenerate, clearError } = useChat({
   id,
   messages: loadMessages(id),
-  transport: new DefaultChatTransport({ api: '/api/chat', fetch: sessionFetch })
+  transport: new DefaultChatTransport({ api: '/api/chat', fetch: sessionFetch }),
+  onData: (part) => {
+    if (part.type === 'data-suggestion') modelSuggestion.value = (part.data as { text?: string }).text
+  }
 })
 
 const input = ref('')
 
 // Persist whenever a turn settles (finished, stopped or failed).
 watch(status, (value) => {
+  if (value === 'submitted') modelSuggestion.value = undefined
   if (value === 'ready' || value === 'error') saveMessages(id, messages.value)
 })
 
@@ -49,6 +56,9 @@ async function copyMessage(message: UIMessage) {
 }
 
 const busy = computed(() => status.value === 'submitted' || status.value === 'streaming')
+
+// Suggested next message for the Tab hint once the reply is done: the model's guess, else a rule-based one.
+const followUp = computed(() => status.value === 'ready' ? modelSuggestion.value ?? suggestFollowUp(messages.value) : undefined)
 
 const assistantActions = computed(() => [
   { label: 'Copy', icon: 'i-lucide-copy', onClick: (_: MouseEvent, message: UIMessage) => copyMessage(message) },
@@ -151,6 +161,7 @@ useSeoMeta({ robots: 'noindex, nofollow' })
         <ChatComposer
           v-model="input"
           :status="status"
+          :suggestion="followUp"
           autofocus
           @submit="send"
           @stop="stop"
