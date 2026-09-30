@@ -2,7 +2,8 @@
 const SITE = {
   url: 'https://parley.emircan-erdemci.workers.dev',
   title: 'Parley · AI chat with live tool cards',
-  description: 'An AI chat with streaming replies and live tool cards for weather, maths and time. Built with Nuxt 4 and Nuxt UI on Cloudflare Workers AI.',
+  // Under ~125 characters so link previews don't truncate it on mobile.
+  description: 'Streaming AI chat with live tool cards for weather, maths and time. Free to try, built with Nuxt UI on Cloudflare.',
   imageAlt: 'Parley: AI chat that talks it through'
 }
 
