@@ -6,12 +6,13 @@ const emit = defineEmits<{ submit: [text: string], stop: [], reload: [] }>()
 
 const input = defineModel<string>({ default: '' })
 
+// Kept short so each one fits on a single line on phones.
 const placeholder = useTypewriter([
   'Ask anything…',
-  'What\'s the weather in Istanbul this week?',
+  'Weather in Istanbul this week?',
   'What\'s 18% of 2,450 plus 320?',
-  'What time is it in Tokyo right now?',
-  'Write a Vue composable that debounces a ref'
+  'What time is it in Tokyo?',
+  'Write a Vue debounce composable'
 ])
 
 function onSubmit() {
