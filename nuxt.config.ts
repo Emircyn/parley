@@ -69,14 +69,15 @@ export default defineNuxtConfig({
   fonts: {
     families: [
       { name: 'Geist', provider: 'google', weights: [400, 500, 600, 700] },
-      { name: 'Geist Mono', provider: 'google', weights: [400, 500] }
+      { name: 'Geist Mono', provider: 'google', weights: [400, 500] },
+      { name: 'Doto', provider: 'google', weights: [800, 900] }
     ]
   },
 
   icon: {
     // Bundle every icon the app uses; never fetch icons from the Iconify API at runtime (CSP + privacy).
-    // Scan .ts too: weather icons are picked at runtime in app/utils/weather.ts.
-    clientBundle: { scan: { globInclude: ['app/**/*.{vue,ts}'] } },
+    // Scan .ts too: weather icons are picked at runtime in shared/utils/weather.ts.
+    clientBundle: { scan: { globInclude: ['app/**/*.{vue,ts}', 'shared/**/*.ts'] } },
     fallbackToApi: false
   }
 })

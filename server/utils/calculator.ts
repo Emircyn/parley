@@ -1,7 +1,7 @@
 /**
  * A tiny, safe arithmetic evaluator for the calculate tool (no eval).
  * Supports + - * / % ^, parentheses, unary minus, constants (pi, e), common functions,
- * "18% of 2450" and thousands separators like "2,450".
+ * "18% of 2450", thousands separators like "2,450" and the words plus, minus, times, divided by.
  */
 const FUNCTIONS: Record<string, (x: number) => number> = {
   sqrt: Math.sqrt,
@@ -31,6 +31,10 @@ export function evaluateExpression(input: string): number {
     .replace(/\*\*/g, '^')
     .replace(/(\d),(?=\d{3}(?!\d))/g, '$1') // 2,450 -> 2450
     .replace(/(\d+(?:\.\d+)?)\s*%\s*of\s*/g, '($1/100)*') // 18% of x -> (18/100)*x
+    .replace(/\bplus\b/g, '+')
+    .replace(/\bminus\b/g, '-')
+    .replace(/\b(?:times|multiplied by)\b/g, '*')
+    .replace(/\b(?:divided by|over)\b/g, '/')
   let pos = 0
 
   const peek = () => source[pos]

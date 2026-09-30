@@ -1,6 +1,8 @@
 export interface WeatherDay {
   date: string
   code: number
+  /** Human-readable condition, so the model never has to quote WMO codes. */
+  condition: string
   max: number
   min: number
 }
@@ -14,6 +16,7 @@ export interface WeatherResult {
     humidity: number
     windSpeed: number
     code: number
+    condition: string
     isDay: boolean
   }
   days: WeatherDay[]

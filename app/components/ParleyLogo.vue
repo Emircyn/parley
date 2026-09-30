@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
- * Parley mark: a speech bubble whose tail is the stem of a "P" (monochrome), answered by a second
- * bubble in the brand gradient. `talking` animates the two bubbles taking turns (used by the loaders).
+ * Parley mark: a speech bubble whose tail is the stem of a "P", answered by a second, quieter bubble.
+ * `talking` animates the two bubbles taking turns (used by the loaders).
  */
 withDefaults(defineProps<{ talking?: boolean }>(), { talking: false })
 
@@ -30,27 +30,6 @@ const reply = 'M20 16H25a4.5 4.5 0 0 1 4.5 4.5V28.5L26 25H20a4.5 4.5 0 0 1-4.5-4
           stroke-linejoin="round"
         />
       </mask>
-      <linearGradient
-        :id="`${id}-grad`"
-        x1="15"
-        y1="16"
-        x2="30"
-        y2="29"
-        gradientUnits="userSpaceOnUse"
-      >
-        <stop
-          offset="0"
-          style="stop-color: var(--accent-cyan)"
-        />
-        <stop
-          offset=".5"
-          style="stop-color: var(--accent-violet)"
-        />
-        <stop
-          offset="1"
-          style="stop-color: var(--accent-magenta)"
-        />
-      </linearGradient>
     </defs>
     <g :mask="`url(#${id}-gap)`">
       <path
@@ -62,7 +41,7 @@ const reply = 'M20 16H25a4.5 4.5 0 0 1 4.5 4.5V28.5L26 25H20a4.5 4.5 0 0 1-4.5-4
     </g>
     <path
       :class="{ 'parley-talk-b': talking }"
-      :fill="`url(#${id}-grad)`"
+      class="fill-(--ui-text-dimmed)"
       :d="reply"
     />
   </svg>

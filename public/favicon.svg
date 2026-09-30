@@ -1,8 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <defs>
-    <linearGradient id="g" x1="15" y1="16" x2="30" y2="29" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#00e5ff"/><stop offset=".5" stop-color="#8b5cff"/><stop offset="1" stop-color="#ff3df2"/>
-    </linearGradient>
     <mask id="gap">
       <rect width="32" height="32" fill="#fff"/>
       <path d="M20 16H25a4.5 4.5 0 0 1 4.5 4.5V28.5L26 25H20a4.5 4.5 0 0 1-4.5-4.5 4.5 4.5 0 0 1 4.5-4.5Z" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round"/>
@@ -11,6 +8,6 @@
   <rect width="32" height="32" rx="7" fill="#000"/>
   <g transform="translate(3.2 3.2) scale(.8)">
     <path mask="url(#gap)" fill="#fff" fill-rule="evenodd" d="M4 11.5A8.5 8.5 0 0 1 12.5 3h5A8.5 8.5 0 0 1 26 11.5 8.5 8.5 0 0 1 17.5 20H11v5.5a3.5 3.5 0 0 1-7 0ZM15 8.3a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 1 0 0-6.4Z"/>
-    <path fill="url(#g)" d="M20 16H25a4.5 4.5 0 0 1 4.5 4.5V28.5L26 25H20a4.5 4.5 0 0 1-4.5-4.5 4.5 4.5 0 0 1 4.5-4.5Z"/>
+    <path fill="#8a8a8a" d="M20 16H25a4.5 4.5 0 0 1 4.5 4.5V28.5L26 25H20a4.5 4.5 0 0 1-4.5-4.5 4.5 4.5 0 0 1 4.5-4.5Z"/>
   </g>
 </svg>

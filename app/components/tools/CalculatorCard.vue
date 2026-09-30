@@ -10,7 +10,6 @@ const { copy, copied } = useClipboard()
   <ToolsToolCard
     icon="i-lucide-calculator"
     title="Calculation"
-    accent="magenta"
   >
     <template #actions>
       <UButton
@@ -26,8 +25,8 @@ const { copy, copied } = useClipboard()
     <p class="break-all font-mono text-sm text-muted">
       {{ data.expression }}
     </p>
-    <p class="mt-1 break-all text-4xl font-semibold leading-tight tracking-tighter text-highlighted tabular-nums">
-      <span class="text-(--accent-magenta)">=</span> {{ data.formatted }}
+    <p class="mt-1 break-all font-display text-5xl font-black leading-tight text-highlighted tabular-nums">
+      <span class="font-sans font-medium text-dimmed">=</span> {{ data.formatted }}
     </p>
   </ToolsToolCard>
 </template>

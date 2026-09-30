@@ -6,10 +6,9 @@ defineProps<{ data: TimeResult }>()
   <ToolsToolCard
     icon="i-lucide-clock"
     title="Local time"
-    accent="lime"
     :subtitle="data.timeZone"
   >
-    <p class="font-mono text-5xl font-medium leading-none tracking-tight text-highlighted tabular-nums">
+    <p class="font-display text-6xl font-black leading-none text-highlighted tabular-nums">
       {{ data.time }}
     </p>
     <p class="mt-2 text-sm text-muted">

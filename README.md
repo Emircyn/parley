@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://parley.emircan-erdemci.workers.dev"><img alt="Live demo" src="https://img.shields.io/badge/live_demo-parley.workers.dev-8b5cff?style=flat-square"></a>
+  <a href="https://parley.emircan-erdemci.workers.dev"><img alt="Live demo" src="https://img.shields.io/badge/live_demo-parley.workers.dev-000000?style=flat-square"></a>
   <a href="https://github.com/Emircyn/parley/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/Emircyn/parley/ci.yml?branch=main&style=flat-square&label=CI"></a>
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-111111?style=flat-square"></a>
   <img alt="Nuxt 4" src="https://img.shields.io/badge/Nuxt-4-00DC82?style=flat-square&logo=nuxt&logoColor=white">
@@ -39,7 +39,7 @@
 | **Reasoning you can peek at** | The model's thinking streams into a collapsible "Thought for 3 seconds" block. |
 | **History in the browser** | Chats are saved locally, grouped by date, and never leave the device. |
 | **Built for keyboards and phones** | `⌘⇧O` new chat, `/` focus, `Esc` stop, `?` for the full list. The sidebar turns into a drawer on mobile. |
-| **AMOLED dark, clean light** | A monochrome interface on true black with vivid accents per tool, a light mode to match, and a brand loader while the app boots. |
+| **Monochrome, AMOLED black** | Strictly black and white on true black, a dot-matrix display face (Doto) for the brand and big numbers, a light mode to match, and a brand loader while the app boots. |
 | **A locked-down API** | Cloudflare Turnstile, a signed session cookie, rate limits, a strict CSP and XSS-safe Markdown keep the free AI quota for real visitors. |
 
 <p align="center">
@@ -94,7 +94,7 @@ Details and how to report an issue: [SECURITY.md](SECURITY.md).
 | | |
 |---|---|
 | Framework | [Nuxt 4](https://nuxt.com), Vue 3, TypeScript |
-| UI | [Nuxt UI v4](https://ui.nuxt.com), Tailwind CSS v4, Lucide icons |
+| UI | [Nuxt UI v4](https://ui.nuxt.com), Tailwind CSS v4, Geist + Doto, Lucide icons |
 | AI | [AI SDK](https://ai-sdk.dev) (`useChat`, `streamText`, tools), Cloudflare Workers AI |
 | Platform | Cloudflare Workers + static assets, Workers Rate Limiting, Turnstile |
 | Quality | ESLint, `vue-tsc`, GitHub Actions CI, Dependabot |

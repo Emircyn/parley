@@ -4,27 +4,20 @@
 @theme static {
   --font-sans: 'Geist', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+  /* Dot-matrix display face, used only for short brand moments: the wordmark, the hero and big values. */
+  --font-display: 'Doto', 'Geist Mono', ui-monospace, monospace;
 }
 
-/*
- * Parley's look: a monochrome interface on true black (AMOLED) with a few vivid accents.
- * Buttons and focus rings are black/white; colour is saved for the brand gradient and the tool cards.
- */
+/* Parley's look: strictly monochrome, black and white on true black (AMOLED) in dark mode. */
 :root {
   --ui-primary: var(--ui-color-primary-900);
   --ui-radius: 0.5rem;
-
-  --accent-cyan: #0891b2;
-  --accent-violet: #7c3aed;
-  --accent-magenta: #c026d3;
-  --accent-lime: #4d7c0f;
-  --parley-gradient: linear-gradient(100deg, var(--accent-cyan), var(--accent-violet) 50%, var(--accent-magenta));
 }
 
 .dark {
   --ui-primary: var(--ui-color-primary-50);
 
-  /* True black surfaces: AMOLED pixels switch off and accents glow. */
+  /* True black surfaces: AMOLED pixels switch off. */
   --ui-bg: #000;
   --ui-bg-muted: #0a0a0a;
   --ui-bg-elevated: #111;
@@ -33,21 +26,10 @@
   --ui-border-muted: #181818;
   --ui-border-accented: #333;
 
-  --accent-cyan: #00e5ff;
-  --accent-violet: #8b5cff;
-  --accent-magenta: #ff3df2;
-  --accent-lime: #c6ff00;
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--accent-magenta) 35%, transparent);
-}
-
-.text-gradient {
-  background: var(--parley-gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  background: color-mix(in oklab, var(--ui-text-highlighted) 20%, transparent);
 }
 
 /* rangi emits --shiki-dark* vars for the dark half of the code theme */
