@@ -160,10 +160,3 @@ On the Workers free plan, Workers AI stops at 10,000 neurons a day instead of bi
 ## License
 
 [MIT](LICENSE) © [Emircan Erdemci](https://emircyn.com)
-
-<br>
-
-<p align="center">
-  Powered by <a href="https://emircyn.com"><b>Emircan Erdemci</b></a><br>
-  <a href="https://emircyn.com">emircyn.com</a> · <a href="https://github.com/Emircyn">GitHub</a>
-</p>
