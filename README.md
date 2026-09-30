@@ -87,8 +87,6 @@ The demo sits on a free AI quota, so the API only answers people using the site.
 | Safe rendering | Model output is Markdown only; raw HTML, images and `javascript:` links are stripped |
 | Headers | Hash-based CSP (no inline scripts), `frame-ancestors 'none'`, HSTS |
 
-Details and how to report an issue: [SECURITY.md](SECURITY.md).
-
 ## Tech stack
 
 | | |
@@ -97,7 +95,7 @@ Details and how to report an issue: [SECURITY.md](SECURITY.md).
 | UI | [Nuxt UI v4](https://ui.nuxt.com), Tailwind CSS v4, Geist + Doto, Lucide icons |
 | AI | [AI SDK](https://ai-sdk.dev) (`useChat`, `streamText`, tools), Cloudflare Workers AI |
 | Platform | Cloudflare Workers + static assets, Workers Rate Limiting, Turnstile |
-| Quality | ESLint, `vue-tsc`, GitHub Actions CI, Dependabot |
+| Quality | ESLint, `vue-tsc`, GitHub Actions CI |
 
 ## Project structure
 
