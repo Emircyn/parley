@@ -21,6 +21,15 @@ interface ForecastResponse {
 const round = (value: number) => Math.round(value * 10) / 10
 
 async function getWeather(city: string): Promise<WeatherResult | ToolErrorResult> {
+  try {
+    return await fetchWeather(city)
+  } catch (error) {
+    console.error('[weather]', error)
+    return { error: 'The weather service is not responding right now. Try again in a minute.' }
+  }
+}
+
+async function fetchWeather(city: string): Promise<WeatherResult | ToolErrorResult> {
   // Open-Meteo: free, no API key.
   const geo = await $fetch<GeocodingResponse>('https://geocoding-api.open-meteo.com/v1/search', {
     query: { name: city, count: 1, language: 'en', format: 'json' },

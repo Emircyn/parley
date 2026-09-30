@@ -6,6 +6,14 @@ const emit = defineEmits<{ submit: [text: string], stop: [], reload: [] }>()
 
 const input = defineModel<string>({ default: '' })
 
+const placeholder = useTypewriter([
+  'Ask anything…',
+  'What\'s the weather in Istanbul this week?',
+  'What\'s 18% of 2,450 plus 320?',
+  'What time is it in Tokyo right now?',
+  'Write a Vue composable that debounces a ref'
+])
+
 function onSubmit() {
   const text = input.value.trim()
   if (!text) return
@@ -19,7 +27,8 @@ function onSubmit() {
     <UChatPrompt
       :id="PROMPT_ID"
       v-model="input"
-      placeholder="Ask anything, or try the weather in your city…"
+      :placeholder="placeholder"
+      aria-label="Message Parley"
       variant="subtle"
       :autofocus="autofocus"
       :maxrows="8"

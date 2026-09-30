@@ -66,5 +66,9 @@ function start(text: string) {
         </div>
       </UContainer>
     </template>
+
+    <template #footer>
+      <AppCredit class="pb-3 pt-1" />
+    </template>
   </UDashboardPanel>
 </template>

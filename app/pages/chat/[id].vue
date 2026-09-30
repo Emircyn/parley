@@ -85,6 +85,8 @@ onMounted(() => {
 })
 
 useHead({ title: () => conversation.value ? `${conversation.value.title} · Parley` : 'Parley' })
+// Chats live only in this browser; keep them out of search results.
+useSeoMeta({ robots: 'noindex, nofollow' })
 </script>
 
 <template>
@@ -154,6 +156,7 @@ useHead({ title: () => conversation.value ? `${conversation.value.title} · Parl
           @stop="stop"
           @reload="retry"
         />
+        <AppCredit class="mt-2" />
       </UContainer>
     </template>
   </UDashboardPanel>

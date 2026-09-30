@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /chat/
+
+Sitemap: https://parley.emircan-erdemci.workers.dev/sitemap.xml

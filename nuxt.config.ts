@@ -1,4 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const SITE = {
+  url: 'https://parley.emircan-erdemci.workers.dev',
+  title: 'Parley · AI chat with live tool cards',
+  description: 'An AI chat with streaming replies and live tool cards for weather, maths and time. Built with Nuxt 4 and Nuxt UI on Cloudflare Workers AI.',
+  imageAlt: 'Parley: AI chat that talks it through'
+}
+
 export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@nuxt/ui', '@comark/nuxt'],
 
@@ -8,14 +15,53 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   app: {
+    // Everything here is in the first HTML response, so crawlers and link previews see it without running JS.
     head: {
-      title: 'Parley',
+      title: SITE.title,
       htmlAttrs: { lang: 'en' },
       meta: [
-        { name: 'description', content: 'Parley is an AI chat with streaming replies and live tool cards, running on Cloudflare Workers AI.' },
-        { name: 'theme-color', content: '#000000' }
+        { name: 'description', content: SITE.description },
+        { name: 'author', content: 'Emircan Erdemci' },
+        { name: 'theme-color', content: '#000000' },
+        { name: 'color-scheme', content: 'dark light' },
+
+        { property: 'og:type', content: 'website' },
+        { property: 'og:site_name', content: 'Parley' },
+        { property: 'og:title', content: SITE.title },
+        { property: 'og:description', content: SITE.description },
+        { property: 'og:url', content: SITE.url },
+        { property: 'og:image', content: `${SITE.url}/og.png` },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: SITE.imageAlt },
+        { property: 'og:locale', content: 'en_US' },
+
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: SITE.title },
+        { name: 'twitter:description', content: SITE.description },
+        { name: 'twitter:image', content: `${SITE.url}/og.png` },
+        { name: 'twitter:image:alt', content: SITE.imageAlt }
       ],
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]
+      link: [
+        { rel: 'canonical', href: SITE.url },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
+      ],
+      script: [{
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebApplication',
+          'name': 'Parley',
+          'url': SITE.url,
+          'description': SITE.description,
+          'applicationCategory': 'ChatApplication',
+          'operatingSystem': 'Any',
+          'offers': { '@type': 'Offer', 'price': '0', 'priceCurrency': 'USD' },
+          'author': { '@type': 'Person', 'name': 'Emircan Erdemci', 'url': 'https://emircyn.com' },
+          'codeRepository': 'https://github.com/Emircyn/parley'
+        })
+      }]
     }
   },
 

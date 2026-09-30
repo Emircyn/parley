@@ -33,7 +33,8 @@ export default defineNitroPlugin((nitroApp) => {
       `base-uri 'none'`,
       `form-action 'self'`,
       `object-src 'none'`,
-      `upgrade-insecure-requests`
+      // Only over HTTPS: on an http:// preview it would rewrite asset URLs to https and blank the page.
+      ...(getRequestURL(event).protocol === 'https:' ? [`upgrade-insecure-requests`] : [])
     ].join('; ')
 
     setResponseHeader(event, 'Content-Security-Policy', policy)
